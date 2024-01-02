@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 import userRoutes from "./routes/users";
 import authRoutes from "./routes/auth";
 import cookieParser from "cookie-parser";
-import path = require("path");
+import path from "path";
 
 mongoose.connect(process.env.MONGODB_URI as string);
 

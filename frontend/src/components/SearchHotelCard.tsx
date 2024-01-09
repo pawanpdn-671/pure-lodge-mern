@@ -1,7 +1,6 @@
-import React from "react";
-import { HotelType } from "../../../backend/src/shared/types";
 import { AiFillStar } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { HotelType } from "../../../backend/src/shared/types";
 
 type Props = {
 	key: number;
@@ -18,8 +17,8 @@ const SearchHotelCard = ({ hotel }: Props) => {
 				<div>
 					<div className="flex items-center">
 						<span className="flex">
-							{Array.from({ length: hotel.starRating })?.map((n, i) => (
-								<AiFillStar key={i} className="fill-yellow-400" />
+							{Array.from({ length: hotel.starRating })?.map((n) => (
+								<AiFillStar key={n} className="fill-yellow-400" />
 							))}
 						</span>
 						<span className="ml-1 text-xm">{hotel.type}</span>

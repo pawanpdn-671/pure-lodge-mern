@@ -29,5 +29,19 @@ test("Should show hotel search results", async ({ page }) => {
 	await page.getByRole("button", { name: "Search" }).click();
 
 	await expect(page.getByText("Hotels found in Test City")).toBeVisible();
-	await expect(page.getByText("Test Hotel")).toBeVisible();
+	const firstHotel = await page.waitForSelector('//a[contains(text(), "Test Hotel")][1]');
+
+	// Check if the element is visible
+	await expect(await firstHotel.isVisible()).toBe(true);
+});
+
+test("should show hotel detali", async ({ page }) => {
+	await page.goto(UI_URL);
+
+	await page.getByPlaceholder("Where are you going?").fill("Test City");
+	await page.getByRole("button", { name: "Search" }).click();
+
+	await page.getByRole("link", { name: "Test Hotel" }).first().click();
+	await expect(page).toHaveURL(/detail/);
+	await expect(page.getByRole("button", { name: "Book now" })).toBeVisible();
 });

@@ -67,7 +67,7 @@ const Search = () => {
 					<PriceFilter selectedPrice={selectedPrice} onChange={(value?: number) => setSelectedPrice(value)} />
 				</div>
 			</div>
-			<div className="flex flex-col gap-5">
+			<div className="flex w-full flex-col gap-5">
 				<div className="flex justify-between items-center">
 					<span className="text-xl font-bold">
 						{hotelData?.pagination.total} Hotels Found
@@ -88,7 +88,7 @@ const Search = () => {
 					<SearchHotelCard key={index} hotel={hotel} />
 				))}
 
-				<div className="mt-5">
+				<div className="w-full mt-5">
 					<Pagination
 						page={hotelData?.pagination.page || 1}
 						pages={hotelData?.pagination.pages || 1}

@@ -1,3 +1,23 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.swiper-pagination-bullet {
+	width: 7px !important;
+	height: 7px !important;
+	background: rgba(163, 163, 163, 0.719);
+	scale: 0.9 !important;
+	opacity: 1 !important;
+}
+.swiper-pagination-bullet-active {
+	color: #ffffff;
+	background: rgb(85, 70, 202) !important;
+	scale: 1.2 !important;
+	opacity: 1 !important;
+}
+.swiper-wrapper {
+	height: 100% !important;
+}
+.react-datepicker-popper {
+	z-index: 9999;
+}

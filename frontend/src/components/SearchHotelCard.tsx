@@ -9,11 +9,11 @@ type Props = {
 
 const SearchHotelCard = ({ hotel }: Props) => {
 	return (
-		<div className="grid grid-cols-1 xl:grid-cols-[2fr_3fr] border border-slate-300 rounded-lg p-8 gap-8">
-			<div className="max-w-full h-[300px]">
+		<div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] border border-slate-300 rounded-lg p-2 sm:p-4 lg:p-8 gap-8">
+			<div className="max-w-full h-[300px] sm:h-[500px] lg:h-[300px]">
 				<img src={hotel.imageUrls[0]} alt={hotel.name} className="w-full h-full object-cover object-center" />
 			</div>
-			<div className="grid grid-rows-[1fr_2fr_1fr]">
+			<div className="grid lg:grid-rows-[1fr_2fr_1fr]">
 				<div>
 					<div className="flex items-center">
 						<span className="flex">
@@ -32,8 +32,8 @@ const SearchHotelCard = ({ hotel }: Props) => {
 				<div>
 					<div className="line-clamp-4">{hotel.description}</div>
 				</div>
-				<div className="grid grid-cols-2 items-end whitespace-nowrap">
-					<div className="flex gap-1 items-center">
+				<div className="grid grid-cols-1 sm:grid-cols-2 items-end whitespace-nowrap">
+					<div className="flex mt-6 flex-wrap sm:flex-nowrap sm:mt-0 gap-1 items-center">
 						{hotel.facilities.slice(0, 3)?.map((facility, idx) => (
 							<span className="bg-slate-200 p-2 rounded-lg font-semibold text-xs whitespace-nowrap" key={idx}>
 								{facility}
@@ -43,7 +43,7 @@ const SearchHotelCard = ({ hotel }: Props) => {
 							{hotel.facilities.length > 3 && ` +${hotel.facilities.length - 3} more`}
 						</span>
 					</div>
-					<div className="flex flex-col items-end gap-4">
+					<div className="flex flex-col mt-4 sm:mt-0 items-end gap-4">
 						<span className="font-bold text-lg">
 							₹{hotel.pricePerNight}/<span className="text-sm font-normal"> night</span>
 						</span>

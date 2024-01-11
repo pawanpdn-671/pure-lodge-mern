@@ -45,9 +45,9 @@ const Register = () => {
 	});
 
 	return (
-		<form onSubmit={onSubmit} className="mt-10 flex flex-col gap-5 max-w-full sm:max-w-xl mx-auto">
-			<h2 className="text-3xl font-bold">Create an Account</h2>
-			<div className="flex flex-col md:flex-row gap-5">
+		<form onSubmit={onSubmit} className="mt-10 flex flex-col gap-5 pb-20 max-w-full sm:max-w-xl mx-auto">
+			<h2 className="text-3xl font-bold text-slate-600 text-center">Create Your Account</h2>
+			<div className="flex flex-col md:flex-row gap-5 mt-5">
 				<label className="text-gray-700 text-base font-bold flex-1">
 					First Name
 					<input
@@ -114,7 +114,7 @@ const Register = () => {
 			<div className="flex justify-end mt-5">
 				<button
 					type="submit"
-					className="outline-none bg-indigo-600 text-white py-2 px-4 font-bold hover:bg-indigo-500 text-xl">
+					className="w-full flex-1 outline-none bg-indigo-600 text-white py-2 px-5 font-semibold hover:bg-indigo-500 text-xl">
 					Create Account
 				</button>
 			</div>

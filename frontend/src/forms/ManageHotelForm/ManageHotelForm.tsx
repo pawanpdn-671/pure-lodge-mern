@@ -72,7 +72,8 @@ const ManageHotelForm = ({ onSave, isLoading, hotel }: Props) => {
 
 	return (
 		<FormProvider {...formMethods}>
-			<form onSubmit={onSubmit} className="mt-10 flex flex-col gap-10 max-w-full sm:max-w-xl mx-auto">
+			<form onSubmit={onSubmit} className="mt-10 pb-20 flex flex-col gap-10 max-w-full sm:max-w-xl mx-auto">
+				<h1 className="text-3xl font-bold">{hotel ? "Edit" : "Add"} Hotel</h1>
 				<DetailSection />
 				<TypeSection />
 				<FacilitySection />

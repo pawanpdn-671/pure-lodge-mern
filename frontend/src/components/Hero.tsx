@@ -1,9 +1,9 @@
 const Hero = () => {
 	return (
-		<div className="bg-indigo-800 pb-16">
-			<div className="container mx-auto flex flex-col gap-2">
-				<h1 className="text-5xl text-white font-bold">Explore and Find your next Staycation</h1>
-				<p className="text-2xl text-white">Search low prices on hotels for your dream vacation...</p>
+		<div className="bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800 pb-16">
+			<div className="max-w-[1280px] px-4 mx-auto flex flex-col gap-2">
+				<h1 className="text-2xl sm:text-5xl text-white font-bold">Explore and Find your next Staycation</h1>
+				<p className="text-sm sm:text-2xl text-white">Search low prices on hotels for your dream vacation...</p>
 			</div>
 		</div>
 	);

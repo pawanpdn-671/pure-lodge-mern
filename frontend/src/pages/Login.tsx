@@ -43,9 +43,9 @@ const Login = () => {
 	});
 
 	return (
-		<div>
-			<form className="flex flex-col gap-5 max-w-full sm:max-w-xl mx-auto" onSubmit={onSubmit}>
-				<h2 className="text-3xl my-5 text-center font-bold">Login</h2>
+		<div className="w-[350px] sm:w-[400px] mx-auto">
+			<form className="flex flex-col gap-5 pb-10" onSubmit={onSubmit}>
+				<h2 className="text-3xl my-5 text-center font-bold text-slate-600">Login</h2>
 				<label className="text-gray-700 text-base font-bold flex-1">
 					Email
 					<input
@@ -70,18 +70,18 @@ const Login = () => {
 					/>
 					{errors.password && <span className="text-red-400 text-sm font-medium">{errors.password.message}</span>}
 				</label>
-				<div className="flex items-center justify-between mt-8">
-					<span className="text-sm">
+				<div className="flex flex-col items-center justify-between mt-8">
+					<button
+						type="submit"
+						className="w-full flex-1 outline-none bg-indigo-600 text-white py-2 px-5 font-semibold hover:bg-indigo-500 text-xl">
+						Login
+					</button>
+					<span className="text-sm mt-4">
 						Not Registered?{" "}
 						<Link to="/register" className="underline text-indigo-600">
 							Create account
 						</Link>
 					</span>
-					<button
-						type="submit"
-						className="outline-none bg-indigo-600 text-white py-2 px-5 font-bold hover:bg-indigo-500 text-xl">
-						Login
-					</button>
 				</div>
 			</form>
 		</div>

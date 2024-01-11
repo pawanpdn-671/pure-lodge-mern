@@ -11,7 +11,7 @@ const FacilitySection = () => {
 	return (
 		<div>
 			<h2 className="text-2xl font-bold mb-3">Facilities</h2>
-			<div className="grid grid-cols-3 gap-4">
+			<div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
 				{hotelFacilities.map((fal, index) => (
 					<label key={index} className="text-sm flex gap-1 text-gray-700 cursor-pointer">
 						<input

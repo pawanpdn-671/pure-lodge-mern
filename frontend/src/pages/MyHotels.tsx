@@ -14,22 +14,24 @@ const MyHotels = () => {
 	}
 
 	return (
-		<div className="space-y-5">
+		<div className="space-y-5 pb-20">
 			<div className="flex justify-between">
 				<h1 className="text-3xl font-bold">My Hotels</h1>
 				<Link
 					to="/add-hotel"
-					className="flex bg-indigo-600 text-white text-xl font-bold px-5 py-2 hover:bg-indigo-500">
+					className="flex bg-indigo-600 text-white textbase lg:text-xl font-semibold px-5 py-2 hover:bg-indigo-500">
 					Add Hotel
 				</Link>
 			</div>
 
 			<div className="grid grid-cols-1 gap-8">
 				{hotelData?.map((hotel, index) => (
-					<div key={index} className="flex gap-5 flex-col justify-between border border-slate-300 rounded-lg p-8">
+					<div
+						key={index}
+						className="flex gap-5 flex-col justify-between border border-slate-300 rounded-lg p-2 sm:p-8">
 						<p className="text-2xl font-semibold">{hotel.name}</p>
 						<div className="whitespace-pre-line">{hotel.description}</div>
-						<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
 							<div
 								className="border border-slate-300 rounded-sm p-3
                       flex items-center">

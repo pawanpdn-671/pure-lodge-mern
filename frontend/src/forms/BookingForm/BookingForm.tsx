@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { StripeCardElement } from "@stripe/stripe-js";
 import { useSearchContext } from "../../context/SearchContext";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useMutation } from "react-query";
 import * as apiClient from "../../api-client";
 import { useAppContext } from "../../context/AppContext";
+import { useState } from "react";
 
 type Props = {
 	currentUser: UserType;
@@ -33,10 +34,13 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 	const search = useSearchContext();
 	const { id } = useParams();
 	const { showToast } = useAppContext();
+	const navigate = useNavigate();
+	const [stripeLoading, setStripeLoading] = useState(false);
 
 	const { mutate: bookRoom, isLoading } = useMutation(apiClient.createRoomBooking, {
 		onSuccess: () => {
 			showToast({ message: "Booking Added!", type: "SUCCESS" });
+			navigate("/my-bookings");
 		},
 		onError: () => {
 			showToast({ message: "Error adding booking!", type: "ERROR" });
@@ -62,6 +66,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 		if (!stripe || !elements) {
 			return;
 		}
+		setStripeLoading(true);
 		const result = await stripe.confirmCardPayment(paymentIntent.clientSecret, {
 			payment_method: {
 				card: elements?.getElement(CardElement) as StripeCardElement,
@@ -70,11 +75,14 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 
 		if (result.paymentIntent?.status === "succeeded") {
 			bookRoom({ ...formData, paymentIntentId: result.paymentIntent.id });
-		}
+			setStripeLoading(false);
+		} else setStripeLoading(false);
 	};
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-5 rounded-md border border-slate-300 p-5">
+		<form
+			onSubmit={handleSubmit(onSubmit)}
+			className="grid grid-cols-1 gap-5 rounded-md border border-slate-300 p-3 sm:p-5">
 			<span className="text-2xl font-semibold">Confirm your details</span>
 			<div className="grid grid-cols-2 gap-6">
 				<label className="text-gray-700 text-sm font-semibold flex-1">
@@ -97,7 +105,7 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 						{...register("lastName")}
 					/>
 				</label>
-				<label className="text-gray-700 text-sm font-semibold flex-1">
+				<label className="col-span-2 md:col-span-1 text-gray-700 text-sm font-semibold flex-1">
 					Email
 					<input
 						type="text"
@@ -123,18 +131,17 @@ const BookingForm = ({ currentUser, paymentIntent }: Props) => {
 				<button
 					type="submit"
 					className="disabled:cursor-not-allowed disabled:bg-gray-300 bg-indigo-600 text-white p-2 px-4 font-semibold hover:bg-indigo-500 text-base"
-					disabled={isLoading}>
+					disabled={isLoading || stripeLoading}>
 					Confirm Booking
 				</button>
-				{isLoading && (
+				{(isLoading || stripeLoading) && (
 					<span className="absolute inline-block w-5 h-5 mr-3 rounded-full animate-spin border-[3px] border-gray-400 border-t-black left-2 top-1/2 -mt-2.5"></span>
 				)}
 			</div>
-			<div className="mt-4 flex flex-col text-sm bg-zinc-100 p-2 px-4 w-max mx-auto">
-				<h2 className="text-center font-semibold pb-2">TEST IT</h2>
+			<div className="mt-4 grid w-[250px] font-semibold mx-auto grid-cols-1 text-sm bg-zinc-100 p-2">
+				<h2 className="text-center font-bold pb-2">TEST IT</h2>
 				<span>Use card no. 4242424242424242</span>
-				<span>Expired should be future random month & year</span>
-				<span>Rest can be random</span>
+				<span>Expired should be future random month & year, rest can be random.</span>
 			</div>
 		</form>
 	);

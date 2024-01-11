@@ -7,6 +7,7 @@ import BookingDetailSummary from "../components/BookingDetailSummary";
 import { useAppContext } from "../context/AppContext";
 import { useSearchContext } from "../context/SearchContext";
 import BookingForm from "../forms/BookingForm/BookingForm";
+import Loader from "../components/Loader";
 
 const Booking = () => {
 	const { stripePromise } = useAppContext();
@@ -42,7 +43,7 @@ const Booking = () => {
 	}
 
 	return (
-		<div className="grid gap-4 md:grid-cols-[1fr_2fr]">
+		<div className="grid gap-4 md:grid-cols-[1fr_2fr] pb-20">
 			<BookingDetailSummary
 				checkIn={search.checkIn}
 				checkOut={search.checkOut}
@@ -51,7 +52,7 @@ const Booking = () => {
 				numberOfNights={numberOfNights}
 				hotel={hotel}
 			/>
-			{currentUser && paymentIntentData && (
+			{currentUser && paymentIntentData ? (
 				<Elements
 					stripe={stripePromise}
 					options={{
@@ -59,6 +60,8 @@ const Booking = () => {
 					}}>
 					<BookingForm currentUser={currentUser} paymentIntent={paymentIntentData} />
 				</Elements>
+			) : (
+				<Loader />
 			)}
 		</div>
 	);

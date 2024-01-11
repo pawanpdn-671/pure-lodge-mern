@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { MdTravelExplore } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useSearchContext } from "../context/SearchContext";
+import { useAppContext } from "../context/AppContext";
 
 const SearchBar = () => {
 	const search = useSearchContext();
@@ -12,9 +13,10 @@ const SearchBar = () => {
 	const [checkOut, setCheckOut] = useState<Date>(search.checkOut);
 	const [adultCount, setAdultCount] = useState<number>(search.adultCount);
 	const [childCount, setChildCount] = useState<number>(search.childCount);
+	const { showToast } = useAppContext();
 
 	const navigate = useNavigate();
-	const handleSubmit = (event: FormEvent) => {
+	const handleSearch = (event: FormEvent) => {
 		event.preventDefault();
 
 		search.handleSearchSave(destination, checkIn, checkOut, adultCount, childCount);
@@ -25,16 +27,28 @@ const SearchBar = () => {
 	const maxDate = new Date();
 	maxDate.setFullYear(maxDate.getFullYear() + 1);
 
+	const handleSubmit = (event: FormEvent) => {
+		event.preventDefault();
+		if (checkIn.toISOString() < checkOut.toISOString()) {
+			handleSearch(event);
+		} else {
+			showToast({
+				message: "Select a valid checkout date.",
+				type: "ERROR",
+			});
+		}
+	};
+
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className="-mt-8 p-3 bg-zinc-50 rounded shadow-md grid grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 items-center gap-4">
-			<div className="flex flex-row items-center flex-1 bg-white p-2 border rounded-md border-indigo-300">
+			className="-mt-8 p-3 bg-zinc-50 rounded shadow-md flex flex-col sm:flex-row sm:flex-wrap items-center gap-4">
+			<div className="flex flex-row items-center bg-white p-2 border rounded-md border-indigo-300">
 				<MdTravelExplore size={25} className="mr-2" />
 				<input
 					type="text"
 					placeholder="Where are you going?"
-					className="text-base w-full focus:outline-none"
+					className="text-base w-[160px] focus:outline-none"
 					value={destination}
 					onChange={(e) => setDestination(e.target.value)}
 				/>
@@ -89,12 +103,9 @@ const SearchBar = () => {
 					wrapperClassName="min-w-full"
 				/>
 			</div>
-			<div className="flex justify-between items-center max-h-full">
-				<button className="w-1/2 bg-indigo-600 text-white p-1.5 font-semibold text-xl hover:bg-indigo-500 h-full">
+			<div className="max-h-full">
+				<button className=" bg-indigo-600 text-white p-1.5 font-semibold text-xl hover:bg-indigo-500 h-full px-5">
 					Search
-				</button>
-				<button className=" bg-red-600 text-white h-full py-1.5 px-5 text-base hover:bg-red-500 tracking-wide">
-					clear
 				</button>
 			</div>
 		</form>

@@ -9,7 +9,7 @@ const MyBookings = () => {
 		return <span>No Bookings Found</span>;
 	}
 	return (
-		<div className="space-y-5">
+		<div className="space-y-5 pb-20">
 			<h1 className="text-3xl font-bold">My Bookings</h1>
 
 			<div>

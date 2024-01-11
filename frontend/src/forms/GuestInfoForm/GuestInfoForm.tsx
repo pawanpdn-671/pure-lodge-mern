@@ -18,7 +18,7 @@ type GuestInfoFormData = {
 
 const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
 	const search = useSearchContext();
-	const { isLoggedIn } = useAppContext();
+	const { isLoggedIn, showToast } = useAppContext();
 	const navigate = useNavigate();
 	const location = useLocation();
 
@@ -56,13 +56,24 @@ const GuestInfoForm = ({ hotelId, pricePerNight }: Props) => {
 		navigate(`/hotel/${hotelId}/booking`);
 	};
 
+	const handleSubmitBefore = (data: GuestInfoFormData) => {
+		if (checkIn.toISOString() < checkOut.toISOString()) {
+			onSubmit(data);
+		} else {
+			showToast({
+				message: "Checkout date should be atleast a day!",
+				type: "ERROR",
+			});
+		}
+	};
+
 	return (
-		<div className="sticky top-28 shadow-lg shadow-slate-200 px-5 py-6 border border-border rounded-lg">
+		<div className="static md:sticky top-28 shadow-lg shadow-slate-200 p-3 border border-border rounded-lg">
 			<h3 className="text-2xl font-semibold">
 				₹{pricePerNight} /<span className="text-sm text-muted-foreground font-normal">night</span>
 			</h3>
 			<div className="mt-8 w-[300px]">
-				<form onSubmit={isLoggedIn ? handleSubmit(onSubmit) : handleSubmit(onSignInClick)}>
+				<form onSubmit={isLoggedIn ? handleSubmit(handleSubmitBefore) : handleSubmit(onSignInClick)}>
 					<div className="grid grid-cols-1 gap-4 items-center">
 						<div className="border border-indigo-300 rounded-md">
 							<DatePicker

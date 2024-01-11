@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import * as apiClient from "../api-client";
-import { useQuery } from "react-query";
-import BookingForm from "../forms/BookingForm/BookingForm";
-import { useSearchContext } from "../context/SearchContext";
-import { useParams } from "react-router-dom";
-import BookingDetailSummary from "../components/BookingDetailSummary";
 import { Elements } from "@stripe/react-stripe-js";
+import { useEffect, useState } from "react";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
+import * as apiClient from "../api-client";
+import BookingDetailSummary from "../components/BookingDetailSummary";
 import { useAppContext } from "../context/AppContext";
+import { useSearchContext } from "../context/SearchContext";
+import BookingForm from "../forms/BookingForm/BookingForm";
 
 const Booking = () => {
 	const { stripePromise } = useAppContext();

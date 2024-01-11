@@ -45,3 +45,34 @@ test("should show hotel detali", async ({ page }) => {
 	await expect(page).toHaveURL(/detail/);
 	await expect(page.getByRole("button", { name: "Book now" })).toBeVisible();
 });
+
+test("should book hotel", async ({ page }) => {
+	await page.goto(UI_URL);
+
+	await page.getByPlaceholder("Where are you going?").fill("Test City");
+
+	const date = new Date();
+	date.setDate(date.getDate() + 3);
+	const formattedDate = date.toISOString().split("T")[0];
+
+	await page.getByPlaceholder("Check-out Date").fill(formattedDate);
+
+	await page.getByRole("button", { name: "Search" }).click();
+
+	await page.getByRole("link", { name: "Test Hotel" }).first().click();
+	await page.getByRole("button", { name: "Book now" }).click();
+
+	await expect(page.getByText("Total Cost: ₹300.00")).toBeVisible();
+
+	const stripeFrame = page.frameLocator("iframe").first();
+	await stripeFrame.locator('[placeholder="Card number"]').fill("4242424242424242");
+	await stripeFrame.locator('[placeholder="MM / YY"]').fill("04/30");
+	await stripeFrame.locator('[placeholder="CVC"]').fill("345");
+	await stripeFrame.locator('[placeholder="ZIP"]').fill("57684");
+
+	await page.getByRole("button", { name: "Confirm Booking" }).click();
+	await page.waitForSelector("text=Booking Added!", { timeout: 10000 });
+
+	const bookingAddedElement = await page.$("text=Booking Added!");
+	expect(bookingAddedElement).not.toBeNull();
+});

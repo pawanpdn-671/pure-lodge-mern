@@ -50,8 +50,8 @@ const HotelDetails = () => {
 										</h3>
 
 										<p className="flex mt-2">
-											{Array.from({ length: hotelDetails?.starRating || 0 })?.map((i) => (
-												<AiFillStar key={i} className="fill-yellow-400" />
+											{Array.from({ length: hotelDetails?.starRating || 0 })?.map((num, i) => (
+												<AiFillStar key={`${num}${i}`} className="fill-yellow-400" />
 											))}
 										</p>
 

@@ -15,15 +15,12 @@ const Toast = ({ message, type, onClose }: ToastProps) => {
 		return () => clearTimeout(timer);
 	}, [onClose]);
 
-	const styles =
-		type === "SUCCESS"
-			? "fixed top-4 right-0 z-50 p-4 rounded-l-md bg-green-600 text-white w-[300px] sm:w-[350px]"
-			: "fixed top-4 right-4 z-50 p-4 rounded-l-md bg-red-600 text-white w-[300px] sm:w-[500px]";
-
 	return (
-		<div className={styles}>
-			<div className="text-left">
-				<span className="text-base font-semibold">{message}</span>
+		<div className="fixed flex min-h-12 top-4 right-0 z-50 rounded-l-md bg-white shadow-sm shadow-zinc-200 w-[300px] sm:w-[350px]">
+			<div
+				className={`w-2 h-full absolute rounded-s-md ${type === "SUCCESS" ? "bg-green-400" : "bg-red-400"}`}></div>
+			<div className="text-left px-4 pl-6 flex items-center">
+				<span className="text-base font-semibold text-black">{message}</span>
 			</div>
 		</div>
 	);

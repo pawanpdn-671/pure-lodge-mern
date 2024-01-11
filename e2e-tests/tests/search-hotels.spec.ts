@@ -75,4 +75,7 @@ test("should book hotel", async ({ page }) => {
 
 	const bookingAddedElement = await page.$("text=Booking Added!");
 	expect(bookingAddedElement).not.toBeNull();
+
+	await page.getByRole("link", { name: "My Bookings" }).click();
+	await expect(page.getByText("Test Hotel")).toBeVisible();
 });

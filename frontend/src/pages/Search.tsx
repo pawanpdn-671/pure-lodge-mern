@@ -60,6 +60,10 @@ const Search = () => {
 		});
 	};
 
+	const handleFilterApply = () => {
+		setFilterOpen(false);
+	};
+
 	return (
 		<div className="w-full grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-5 pb-20">
 			<div className="rounded-lg hidden lg:block border border-slate-300 p-5 h-fit sticky">
@@ -130,9 +134,10 @@ const Search = () => {
 								selectedPrice={selectedPrice}
 								onChange={(value?: number) => setSelectedPrice(value)}
 							/>
-							I
 						</div>
-						<button className="text-white py-1.5 bg-indigo-600 text-lg font-semibold hover:bg-indigo-500 w-full block mt-5 sticky bottom-0 left-0">
+						<button
+							onClick={handleFilterApply}
+							className="text-white py-1.5 bg-indigo-600 text-lg font-semibold hover:bg-indigo-500 w-full block mt-5 sticky bottom-0 left-0">
 							Apply Filters
 						</button>
 					</div>

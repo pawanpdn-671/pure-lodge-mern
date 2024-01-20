@@ -15,7 +15,7 @@ const Header = () => {
 	}, [pathname]);
 
 	return (
-		<div className="bg-gradient-to-r from-slate-700 via-slate-600 to-slate-800 py-6">
+		<div className="bg-gradient-to-r from-indigo-700 via-indigo-500 to-indigo-950 py-6">
 			<div className="max-w-[1280px] px-4 mx-auto flex justify-between">
 				<span className="text-xl sm:text-3xl text-white font-bold tracking-tight">
 					<Link to="/">PureLodge.com</Link>
